@@ -50,17 +50,17 @@
 
 <body>
     </div>
-    <p>浏览器窗口逻辑分辨率(document.documentElement.clientWidth+'×'+document.documentElement.clientHeight;):<span id="s1"></span>
+    <p>浏览器窗口逻辑分辨率(document.documentElement.clientWidth+'x'+document.documentElement.clientHeight;):<span id="s1"></span>
     </p>
-    <p>浏览器全屏逻辑分辨率(screen.width+'×'+screen.height):<span id="s2"></span></p>
-    <p>屏幕物理分辨率(width*window.devicePixelRatio+'×'+height*window.devicePixelRatio):<span id="s3"></span></p>
+    <p>浏览器全屏逻辑分辨率(screen.width+'x'+screen.height):<span id="s2"></span></p>
+    <p>屏幕物理分辨率(width*window.devicePixelRatio+'x'+height*window.devicePixelRatio):<span id="s3"></span></p>
     <p>设备像素比,设备像素比x96,x128,x160,x163(window.devicePixelRatio,~*96,~*128,~*160,~*163):<span id="s4"></span></p>
 
     <p>斜边逻辑像素数量(向上取整),在96,128,160,163dpi下的屏幕尺寸(保留2位)(~,~/96,~/128,~/160,~/163):<span id="s16"></span></p>
 
     <p>斜边逻辑像素数量(窗口值，向上取整),在96,128,160,163dpi下的屏幕尺寸(保留2位)(~,~/96,~/128,~/160,~/163):<span id="s17"></span></p>
 
-    <p>屏幕可用工作区高度*宽度(screen.availWidth+'×'+screen.availHeight):<span id="s6"></span></p>
+    <p>屏幕可用工作区高度*宽度(screen.availWidth+'x'+screen.availHeight):<span id="s6"></span></p>
 
     <p>色深(screen.colorDepth):<span id="s5"></span></p>
     <p>位深(screen.pixelDepth):<span id="s7"></span></p>
@@ -95,15 +95,15 @@
     function fenbianlv() {
         var W = document.documentElement.clientWidth;
         var H = document.documentElement.clientHeight;
-        document.getElementById("s1").innerHTML = W + '×' + H;
+        document.getElementById("s1").innerHTML = W + 'x' + H;
 
         var width = screen.width;
         var height = screen.height;
-        document.getElementById("s2").innerHTML = width + '×' + height;
+        document.getElementById("s2").innerHTML = width + 'x' + height;
 
         var dpr = window.devicePixelRatio;
-        document.getElementById("s3").innerHTML = width * dpr + '×' + height * dpr;
-        document.getElementById("s4").innerHTML = dpr +  ',' + dpr * 96 +',' + dpr * 128 + ',' + dpr * 160 + ',' + dpr * 163;
+        document.getElementById("s3").innerHTML = width * dpr + 'x' + height * dpr;
+        document.getElementById("s4").innerHTML = dpr +  '，' + dpr * 96 +'，' + dpr * 128 + '，' + dpr * 160 + '，' + dpr * 163;
 
         document.getElementById("s5").innerHTML = screen.colorDepth;
 
@@ -125,11 +125,11 @@
 
         var hypopx = Math.ceil(Math.sqrt(Math.pow(screen.width, 2) + Math.pow(screen.height, 2)));
 
-        document.getElementById("s16").innerHTML = hypopx + ',' + (hypopx / 96).toFixed(2) + ',' +  (hypopx / 128).toFixed(2) + ',' +  (hypopx / 160).toFixed(2)+ ',' +  (hypopx / 163).toFixed(2);
+        document.getElementById("s16").innerHTML = hypopx + '，' + (hypopx / 96).toFixed(2) + '，' +  (hypopx / 128).toFixed(2) + '，' +  (hypopx / 160).toFixed(2)+ '，' +  (hypopx / 163).toFixed(2);
 
         var hypopx2 = Math.ceil(Math.sqrt(Math.pow(W, 2) + Math.pow(H, 2)));
 
-        document.getElementById("s17").innerHTML = hypopx2 + ',' + (hypopx2 / 96).toFixed(2) + ',' +  (hypopx2 / 128).toFixed(2) + ',' +  (hypopx2 / 160).toFixed(2)+ ',' +  (hypopx2 / 163).toFixed(2);
+        document.getElementById("s17").innerHTML = hypopx2 + '，' + (hypopx2 / 96).toFixed(2) + '，' +  (hypopx2 / 128).toFixed(2) + '，' +  (hypopx2 / 160).toFixed(2)+ '，' +  (hypopx2 / 163).toFixed(2);
 
     }
     window.onload = function () {
