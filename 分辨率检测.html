@@ -50,17 +50,17 @@
 
 <body>
     </div>
-    <p>浏览器窗口逻辑分辨率(document.documentElement.clientWidth+'x'+document.documentElement.clientHeight;):<span id="s1"></span>
+    <p>窗口逻辑分辨率(document.documentElement.clientWidth+'x'+document.documentElement.clientHeight;):<span id="s1"></span>
     </p>
-    <p>浏览器全屏逻辑分辨率(screen.width+'x'+screen.height):<span id="s2"></span></p>
-    <p>屏幕物理分辨率(width*window.devicePixelRatio+'x'+height*window.devicePixelRatio):<span id="s3"></span></p>
+    <p>全屏逻辑分辨率(screen.width+'x'+screen.height):<span id="s2"></span></p>
+    <p>全屏物理分辨率(width*window.devicePixelRatio+'x'+height*window.devicePixelRatio):<span id="s3"></span></p>
     <p>设备像素比,设备像素比x96,x128,x160,x163(window.devicePixelRatio,~*96,~*128,~*160,~*163):<span id="s4"></span></p>
 
-    <p>斜边逻辑像素数量(向上取整),在96,128,160,163dpi下的屏幕尺寸(保留2位)(~,~/96,~/128,~/160,~/163):<span id="s16"></span></p>
+    <p>全屏斜边逻辑像素量(ceil取整),在96,128,160,163dpi下的物理尺寸(toFixed,2位)(√(W^2+H^2),~/96,~/128,~/160,~/163):<span id="s16"></span></p>
 
-    <p>斜边逻辑像素数量(窗口值，向上取整),在96,128,160,163dpi下的屏幕尺寸(保留2位)(~,~/96,~/128,~/160,~/163):<span id="s17"></span></p>
+    <p>窗口斜边逻辑像素量(ceil取整),在96,128,160,163dpi下的物理尺寸(toFixed,2位)(√(W^2+H^2),~/96,~/128,~/160,~/163):<span id="s17"></span></p>
 
-    <p>屏幕可用工作区高度*宽度(screen.availWidth+'x'+screen.availHeight):<span id="s6"></span></p>
+    <p>屏幕可用工作区(screen.availWidth+'x'+screen.availHeight):<span id="s6"></span></p>
 
     <p>色深(screen.colorDepth):<span id="s5"></span></p>
     <p>位深(screen.pixelDepth):<span id="s7"></span></p>
@@ -69,21 +69,21 @@
     <p id="bor2">CSS的96px线条<span></span></p>
 
 
-    <p>浏览器窗口的视口宽和高度,包括水平滚动条(window.innerWidth+'x'+window.innerHeight):<span id="s8"></span></p>
+    <p>窗口的视口,包括水平滚动条(window.innerWidth+'x'+window.innerHeight):<span id="s8"></span></p>
 
-    <p>浏览器窗口外部宽和高度(window.outerWidth+'x'+window.outerHeight):<span id="s9"></span></p>
+    <p>窗口外部(window.outerWidth+'x'+window.outerHeight):<span id="s9"></span></p>
 
-    <p>文档中 body 部分的宽和高度(document.body.offsetWidth+'x'+document.body.offsetHeight;):<span id="s10"></span></p>
+    <p>文档中body部分(document.body.offsetWidth+'x'+document.body.offsetHeight;):<span id="s10"></span></p>
 
-    <p>文档可显示区域的宽和高度(document.documentElement.clientWidth+'x'+document.documentElement.clientHeight):<span
+    <p>文档可显示区域的(document.documentElement.clientWidth+'x'+document.documentElement.clientHeight):<span
             id="s11"></span></p>
 
-    <p>文档本身的宽和高度(html部分)(document.documentElement.offsetWidth+'x'+document.documentElement.offsetHeight):<span
+    <p>文档本身的(html部分)(document.documentElement.offsetWidth+'x'+document.documentElement.offsetHeight):<span
             id="s12"></span></p>
 
-    <p>整个页面滚动的像素值(水平方向的和垂直方向的)(window.pageXOffset+'x'+window.pageYOffset):<span id="s13"></span></p>
+    <p>整个页面滚动的像素值(window.pageXOffset+'x'+window.pageYOffset):<span id="s13"></span></p>
 
-    <p>浏览器窗口在显示器中的位置(水平方向的和垂直方向的)(window.screenX+'x'+window.screenY):<span id="s14"></span></p>
+    <p>窗口在显示器中的位置(window.screenX+'x'+window.screenY):<span id="s14"></span></p>
 
     <p>刷新率(screen.updateInterval):<span id="s15"></span></p>
 
