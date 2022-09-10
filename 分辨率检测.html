@@ -51,7 +51,7 @@
 
 <body>
 
-    <p>全屏逻辑分辨率(screen.width+'x'+screen.height):<span id="s2"></span></p>
+    <p>全屏逻辑分辨率和比例(screen.width+'x'+screen.height):<span id="s2"></span></p>
     <p>设备像素比,设备像素比x96,x128,x160,x163(window.devicePixelRatio,~*96,~*128,~*160,~*163):<span id="s4"></span></p>
     <p>全屏物理分辨率(width*window.devicePixelRatio+'x'+height*window.devicePixelRatio):<span id="s3"></span></p>
 
@@ -59,7 +59,7 @@
     <p>全屏斜边逻辑像素量(ceil取整),在96,128,160,163dpi下的物理尺寸(toFixed,2位)(√(W^2+H^2),~/96,~/128,~/160,~/163):<span id="s16"></span>
     </p>
     <br/>
-    <p>窗口逻辑分辨率(document.documentElement.clientWidth+'x'+document.documentElement.clientHeight;):<span id="s1"></span>
+    <p>窗口逻辑分辨率和比例(document.documentElement.clientWidth+'x'+document.documentElement.clientHeight;):<span id="s1"></span>
     </p>
 
     <p>窗口斜边逻辑像素量(ceil取整),在96,128,160,163dpi下的物理尺寸(toFixed,2位)(√(W^2+H^2),~/96,~/128,~/160,~/163):<span id="s17"></span>
@@ -99,11 +99,13 @@
     function fenbianlv() {
         var W = document.documentElement.clientWidth;
         var H = document.documentElement.clientHeight;
-        document.getElementById("s1").innerHTML = W + 'x' + H;
+        var arr1=reductionTo(W,H);
+        document.getElementById("s1").innerHTML = W + 'x' + H+'（'+arr1[0]+':'+arr1[1]+'）';
 
         var width = screen.width;
         var height = screen.height;
-        document.getElementById("s2").innerHTML = width + 'x' + height;
+        var arr2=reductionTo(width,height);
+        document.getElementById("s2").innerHTML = width + 'x' + height+'（'+arr2[0]+':'+arr2[1]+'）';
 
         var dpr = window.devicePixelRatio;
         document.getElementById("s3").innerHTML = width * dpr + 'x' + height * dpr;
@@ -135,6 +137,35 @@
 
         document.getElementById("s17").innerHTML = hypopx2 + '，' + (hypopx2 / 96).toFixed(2) + '，' + (hypopx2 / 128).toFixed(2) + '，' + (hypopx2 / 160).toFixed(2) + '，' + (hypopx2 / 163).toFixed(2);
 
+    }
+
+    function reductionTo(m, n) {
+        var arr = [];
+        if (!isInteger(m) || !isInteger(n)) {
+            // console.log('m和n必须为整数');
+            return;
+        } else if (m <= 0 || n <= 0) {
+            // console.log('m和n必须大于0');
+            return;
+        }
+        var a = m;
+        var b = n;
+        (a >= b) ? (a = m, b = n) : (a = n, b = m);
+        if (m != 1 && n != 1) {
+            for (var i = b; i >= 2; i--) {
+                if (m % i == 0 && n % i == 0) {
+                    m = m / i;
+                    n = n / i;
+                }
+            }
+        }
+        arr[0] = m;
+        arr[1] = n;
+        return arr;
+    }
+
+    function isInteger(obj) {
+        return obj % 1 === 0
     }
     window.onload = function () {
         fenbianlv();
