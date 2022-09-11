@@ -33,10 +33,10 @@
             border-width: 1in;
         }
 
-        #borsetdpi {
+        /* #borsetdpi {
             border-bottom: solid #808080;
             border-width: 160px;
-        }
+        } */
 
 
         #bor96 {
@@ -89,13 +89,15 @@
     <p>全屏物理分辨率(width*window.devicePixelRatio+'x'+height*window.devicePixelRatio):<span id="s3"></span></p>
 
 
-    <p>全屏斜边逻辑像素量(ceil取整),在自定义,96,128,160,163dpi下的物理尺寸(toFixed,2位)(√(W^2+H^2),~/96,~/128,~/160,~/163):<span id="s16"></span>
+    <p>全屏斜边逻辑像素量(ceil取整),在自定义,96,128,160,163dpi下的物理尺寸(toFixed,2位)(√(W^2+H^2),~/96,~/128,~/160,~/163):<span
+            id="s16"></span>
     </p>
     <br />
     <p>窗口逻辑分辨率和比例(document.documentElement.clientWidth+'x'+document.documentElement.clientHeight;):<span id="s1"></span>
     </p>
 
-    <p>窗口斜边逻辑像素量(ceil取整),在自定义,96,128,160,163dpi下的物理尺寸(toFixed,2位)(√(W^2+H^2),~/96,~/128,~/160,~/163):<span id="s17"></span>
+    <p>窗口斜边逻辑像素量(ceil取整),在自定义,96,128,160,163dpi下的物理尺寸(toFixed,2位)(√(W^2+H^2),~/96,~/128,~/160,~/163):<span
+            id="s17"></span>
     </p>
 
     <p>屏幕可用工作区(screen.availWidth+'x'+screen.availHeight):<span id="s6"></span></p>
