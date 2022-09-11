@@ -33,6 +33,11 @@
             border-width: 1in;
         }
 
+        /* #borsetdpi {
+            border-bottom: solid #808080;
+            border-width: 160px;
+        } */
+
         #bor96 {
             border-bottom: solid #808080;
             border-width: 96px;
@@ -66,18 +71,30 @@
 
 <body>
 
+    <p>
+        <form onsubmit="return checkSubmit()">
+        自定义dpi
+        
+        <input type="number" value="160" max="9999" min="1" width="100px" name="indpi" id="z1"/>
+        <input type="button" value="确定" id="dpiok" onclick="setdpi()"/>
+        <!-- <input type="submit" value="确定"/> -->
+
+    </form>
+    
+    </p>
+
     <p>全屏逻辑分辨率和比例:<span id="s2"></span></p>
-    <p>设备像素比,和其x96,x128,x160,x163:<span id="s4"></span></p>
+    <p>设备像素比,和其x自定义,x96,x128,x160,x163:<span id="s4"></span></p>
     <p>全屏物理分辨率:<span id="s3"></span></p>
 
 
-    <p>全屏斜边逻辑像素量,取96,128,160,163dpi的尺寸:<span id="s16"></span>
+    <p>全屏斜边逻辑像素量,取自定义,96,128,160,163dpi的尺寸:<span id="s16"></span>
     </p>
     <br/>
     <p>窗口逻辑分辨率和比例:<span id="s1"></span>
     </p>
 
-    <p>窗口斜边逻辑像素量,取96,128,160,163dpi的尺寸:<span id="s17"></span>
+    <p>窗口斜边逻辑像素量,取自定义,96,128,160,163dpi的尺寸:<span id="s17"></span>
     </p>
 
     <p>屏幕可用工作区:<span id="s6"></span></p>
@@ -85,6 +102,7 @@
     <p>色深:<span id="s5"></span></p>
     <p>位深:<span id="s7"></span></p>
 
+    <p id="borsetdpi">CSS的自定义尺寸线条<span></span></p>
     <p id="bor">CSS的1in线条<span></span></p>
     <p id="bor96">CSS的96px线条<span></span></p>
     <p id="bor128">CSS的128px线条<span></span></p>
@@ -114,7 +132,9 @@
 
 </html>
 <script>
-    function fenbianlv() {
+
+    function fenbianlv(thedpi) {
+        // alert('ok'+thedpi);
         var W = document.documentElement.clientWidth;
         var H = document.documentElement.clientHeight;
         var arr1=reductionTo(W,H);
@@ -127,7 +147,7 @@
 
         var dpr = window.devicePixelRatio;
         document.getElementById("s3").innerHTML = width * dpr + 'x' + height * dpr;
-        document.getElementById("s4").innerHTML = dpr + '，' + dpr * 96 + '，' + dpr * 128 + '，' + dpr * 160 + '，' + dpr * 163;
+        document.getElementById("s4").innerHTML = dpr+ '，' + dpr * thedpi + '，' + dpr * 96 + '，' + dpr * 128 + '，' + dpr * 160 + '，' + dpr * 163;
 
         document.getElementById("s5").innerHTML = screen.colorDepth;
 
@@ -149,13 +169,42 @@
 
         var hypopx = Math.ceil(Math.sqrt(Math.pow(screen.width, 2) + Math.pow(screen.height, 2)));
 
-        document.getElementById("s16").innerHTML = hypopx + '，' + (hypopx / 96).toFixed(2) + '，' + (hypopx / 128).toFixed(2) + '，' + (hypopx / 160).toFixed(2) + '，' + (hypopx / 163).toFixed(2);
+        document.getElementById("s16").innerHTML = hypopx + '，' + (hypopx / thedpi).toFixed(2) + '，' + (hypopx / 96).toFixed(2) + '，' + (hypopx / 128).toFixed(2) + '，' + (hypopx / 160).toFixed(2) + '，' + (hypopx / 163).toFixed(2);
 
         var hypopx2 = Math.ceil(Math.sqrt(Math.pow(W, 2) + Math.pow(H, 2)));
 
-        document.getElementById("s17").innerHTML = hypopx2 + '，' + (hypopx2 / 96).toFixed(2) + '，' + (hypopx2 / 128).toFixed(2) + '，' + (hypopx2 / 160).toFixed(2) + '，' + (hypopx2 / 163).toFixed(2);
+        document.getElementById("s17").innerHTML = hypopx2 + '，' + (hypopx2 / thedpi).toFixed(2) + '，' + (hypopx2 / 96).toFixed(2) + '，' + (hypopx2 / 128).toFixed(2) + '，' + (hypopx2 / 160).toFixed(2) + '，' + (hypopx2 / 163).toFixed(2);
+
+        document.getElementById("borsetdpi").setAttribute("style", "border-bottom: solid #808080;border-width: "+thedpi+"px;");
 
     }
+
+    function setdpi(){
+        var thedpi= document.getElementById("z1").value;
+        fenbianlv(thedpi);
+        // alert(thedpi);
+
+    }
+
+    function checkSubmit(){
+        event.preventDefault();//阻止表单的默认行为
+        setdpi();
+    }
+
+    window.onload = function () {
+        var thedpi= document.getElementById("z1").value;
+        fenbianlv(thedpi);
+    }
+    onresize = function () {
+        var thedpi= document.getElementById("z1").value;
+        fenbianlv(thedpi);
+    }
+    // onclick = function () {
+    //     fenbianlv();
+    // }
+    // document.onmousemove=function(){
+    //     fenbianlv();
+    // }
 
     function reductionTo(m, n) {
         var arr = [];
@@ -185,16 +234,4 @@
     function isInteger(obj) {
         return obj % 1 === 0
     }
-    window.onload = function () {
-        fenbianlv();
-    }
-    onresize = function () {
-        fenbianlv();
-    }
-    // onclick = function () {
-    //     fenbianlv();
-    // }
-    // document.onmousemove=function(){
-    //     fenbianlv();
-    // }
 </script>
