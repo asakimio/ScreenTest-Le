@@ -75,25 +75,22 @@
 
 <body>
 
-    <p>
     <form onsubmit="return checkSubmit()">
         自定义dpi
-
         <input type="number" value="113" max="9999" min="1" name="indpi" id="z1" onblur="setdpi()" onclick="setdpi()" />
         <input type="button" value="确定" id="dpiok" onclick="setdpi()" />
-
+        &emsp;&emsp;
+        <input type="checkbox" checked id="det" onclick="detOnclick(this)">
+        <label for="det">隐藏代码</label>
     </form>
-    <input type="checkbox" checked id="det" onclick="detOnclick(this)">
-    <label for="det">隐藏代码</label>
-
-    </p>
 
     <p>全屏逻辑分辨率和比例<span class="dettext">(screen.width+'x'+screen.height)</span>:<span id="s2" class="num"></span></p>
     <p>设备像素比,和其x自定义,x96,x128,x160,x163<span
             class="dettext">(window.devicePixelRatio,~*96,~*128,~*160,~*163)</span>:<span id="s4" class="num"></span>
     </p>
     <p>全屏物理分辨率<span class="dettext">(width*window.devicePixelRatio+'x'+height*window.devicePixelRatio)</span>:<span
-            id="s3" class="num"></span></p>
+            id="s3" class="num"></span>
+    </p>
 
 
     <p>全屏斜边逻辑像素量,取自定义,96,128,160,163dpi的尺寸<span
@@ -148,6 +145,8 @@
     <p>窗口在显示器中的位置<span class="dettext">(window.screenX+'x'+window.screenY)</span>:<span id="s14" class="num"></span></p>
 
     <p>刷新率<span class="dettext">(screen.updateInterval)</span>:<span id="s15" class="num"></span></p>
+
+    <a href="https://github.com/asakimio/ScreenTest-Le" target="_blank">在GitHub上查看</a>
 
 </body>
 
