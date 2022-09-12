@@ -76,7 +76,7 @@
     <form onsubmit="return checkSubmit()">
         自定义dpi
 
-        <input type="number" value="113" max="9999" min="1" width="100px" name="indpi" id="z1" />
+        <input type="number" value="113" max="9999" min="1" width="100px" name="indpi" id="z1" onblur="setdpi()" onclick="setdpi()" />
         <input type="button" value="确定" id="dpiok" onclick="setdpi()" />
         <!-- <input type="submit" value="确定"/> -->
 
@@ -183,8 +183,6 @@
     function setdpi() {
         var thedpi = document.getElementById("z1").value;
         fenbianlv(thedpi);
-        // alert(thedpi);
-
     }
 
     function checkSubmit() {
@@ -193,12 +191,10 @@
     }
 
     window.onload = function () {
-        var thedpi = document.getElementById("z1").value;
-        fenbianlv(thedpi);
+        setdpi();
     }
     onresize = function () {
-        var thedpi = document.getElementById("z1").value;
-        fenbianlv(thedpi);
+        setdpi();
     }
     // onclick = function () {
     //     fenbianlv();
