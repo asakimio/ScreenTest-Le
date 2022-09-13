@@ -83,8 +83,8 @@
         <input type="button" value="+" id="dpip" onclick="fdpip()" />
         <!-- <input type="button" value="确定" id="dpiok" onclick="setdpi()" /> -->
         &emsp;&emsp;
-        <input type="checkbox" checked id="det" onclick="detOnclick(this)">
-        <label for="det">隐藏代码</label>
+        <input type="checkbox" id="det" onclick="detOnclick(this)">
+        <label for="det">显示代码</label>
     </form>
 
     <p>全屏逻辑分辨率和比例<span class="dettext">(screen.width+'x'+screen.height)</span>:<span id="s2" class="num"></span></p>
@@ -217,8 +217,9 @@
 
     function fdpip() {
         //加按钮
+        var maxn = document.getElementById("z1").max;
         var thedpip = document.getElementById("z1").value;
-        if (thedpip < 9999) {
+        if (thedpip < maxn) {
             document.getElementById("z1").value = Number(thedpip) + 1;
             setdpi();
         }
@@ -226,12 +227,12 @@
 
     function fdpim() {
         //减按钮
+        var minn = document.getElementById("z1").min;
         var thedpim = document.getElementById("z1").value;
-        if (thedpim > 0) {
+        if (thedpim > minn) {
             document.getElementById("z1").value = Number(thedpim) - 1;
             setdpi();
         }
-
     }
     function detOnclick(checkbox) {
         //控制是否在页面显示预设的代码
@@ -239,12 +240,13 @@
 
         if (checkbox.checked == true) {
             Array.prototype.forEach.call(dettext, function (element) {
-                element.setAttribute("style", "display: none;");
+                element.setAttribute("style", "display: block;");
             })
-        } else if (checkbox.checked == false) {
+        }
+        if (checkbox.checked == false) {
             Array.prototype.forEach.call(dettext, function (element) {
                 // element.setAttribute("style", "display: inline;");
-                element.setAttribute("style", "display: block;");
+                element.setAttribute("style", "display: none;");
             })
         }
     }
