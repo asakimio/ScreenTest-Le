@@ -93,69 +93,74 @@
         <input type="checkbox" id="det" onclick="detOnclick(this)">
         <label for="det">显示代码</label>
     </form>
+    <p id="borsetdpi">自定义dpi高度线条<span></span></p>
 
-    <p>全屏dip和比例<span class="dettext">(screen.width+'x'+screen.height)</span>：<span id="s2" class="num"></span></p>
+    <fieldset>
+        <legend>全屏幕</legend>
+        <p>逻辑分辨率和比例<span class="dettext">(screen.width+'x'+screen.height)</span>：<span id="s2" class="num"></span></p>
 
-    <p>全屏物理分辨率<span class="dettext">(width*window.devicePixelRatio+'x'+height*window.devicePixelRatio)</span>：<span
-            id="s3" class="num"></span>
-    </p>
+        <p>物理分辨率<span class="dettext">(width*window.devicePixelRatio+'x'+height*window.devicePixelRatio)</span>：<span
+                id="s3" class="num"></span>
+        </p>
 
-    <p>dpr,和取自定义,96,128,160,163dpi时的PPI<span
-            class="dettext">(window.devicePixelRatio,~*96,~*128,~*160,~*163)</span>：<span id="s4" class="num"></span>
-    </p>
+        <p>dpr,和取自定义,96,128,160,163dpi时的PPI<span
+                class="dettext">(window.devicePixelRatio,~*96,~*128,~*160,~*163)</span>：<span id="s4"
+                class="num"></span>
+        </p>
 
-    <p>斜边dip量,和取自定义,96,128,160,163dpi时的尺寸<span
-            class="dettext">(√(screen.width^2+screen.height^2),~/96,~/128,~/160,~/163)</span>：<span id="s16"
+        <p>斜边dip量,和取自定义,96,128,160,163dpi时的尺寸<span
+                class="dettext">(√(screen.width^2+screen.height^2),~/96,~/128,~/160,~/163)</span>：<span id="s16"
+                class="num"></span>
+        </p>
+    </fieldset>
+    <!-- <br /> -->
+    <fieldset>
+        <legend>窗口</legend>
+        <p>逻辑分辨率和比例<span
+                class="dettext">(document.documentElement.clientWidth+'x'+document.documentElement.clientHeight)</span>：<span
+                id="s1" class="num"></span>
+        </p>
+
+        <p>斜边dip量,和取自定义,96,128,160,163dpi时的尺寸<span
+                class="dettext">(√(screen.width^2+screen.height^2),~/96,~/128,~/160,~/163)</span>：<span id="s17"
+                class="num"></span>
+        </p>
+    </fieldset>
+    
+    <fieldset>
+        <legend>其他信息</legend>
+        屏幕可用工作区<span class="dettext">(screen.availWidth+'x'+screen.availHeight)</span>:<span id="s6" class="num"></span>
+        色深<span class="dettext">(screen.colorDepth)</span>:<span id="s5" class="num"></span>
+        位深<span class="dettext">(screen.pixelDepth)</span>:<span id="s7" class="num"></span>
+        窗口的视口,包括水平滚动条dip<span class="dettext">(window.innerWidth+'x'+window.innerHeight)</span>:<span id="s8"
             class="num"></span>
-    </p>
-    <br />
-    <p>窗口dip和比例<span
-            class="dettext">(document.documentElement.clientWidth+'x'+document.documentElement.clientHeight)</span>：<span
-            id="s1" class="num"></span>
-    </p>
 
-    <p>窗口斜边dip量,和取自定义,96,128,160,163dpi时的尺寸<span
-            class="dettext">(√(screen.width^2+screen.height^2),~/96,~/128,~/160,~/163)</span>：<span id="s17"
-            class="num"></span>
-    </p>
+        窗口外部dip<span class="dettext">(window.outerWidth+'x'+window.outerHeight)</span>:<span id="s9" class="num"></span>
 
-    <p>屏幕可用工作区<span class="dettext">(screen.availWidth+'x'+screen.availHeight)</span>：<span id="s6" class="num"></span>
-    </p>
+        文档中body部分dip<span class="dettext">(document.body.offsetWidth+'x'+document.body.offsetHeight)</span>:<span
+            id="s10" class="num"></span>
 
-    <p>色深<span class="dettext">(screen.colorDepth)</span>：<span id="s5" class="num"></span></p>
-    <p>位深<span class="dettext">(screen.pixelDepth)</span>：<span id="s7" class="num"></span></p>
-
-    <p id="borsetdpi">CSS的自定义dpi线条<span></span></p>
-    <p id="bor">CSS的1in线条<span></span></p>
-    <p id="bor96">CSS的96px线条<span></span></p>
-    <p id="bor128">CSS的128px线条<span></span></p>
-    <p id="bor160">CSS的160px线条<span></span></p>
-    <p id="bor163">CSS的163px线条<span></span></p>
-
-
-    <p>窗口的视口,包括水平滚动条dip<span class="dettext">(window.innerWidth+'x'+window.innerHeight)</span>：<span id="s8"
-            class="num"></span></p>
-
-    <p>窗口外部dip<span class="dettext">(window.outerWidth+'x'+window.outerHeight)</span>：<span id="s9" class="num"></span></p>
-
-    <p>文档中body部分dip<span class="dettext">(document.body.offsetWidth+'x'+document.body.offsetHeight)</span>：<span id="s10"
-            class="num"></span></p>
-
-    <p>文档可显示区域dip<span
-            class="dettext">(document.documentElement.clientWidth+'x'+document.documentElement.clientHeight)</span>：<span
+        文档可显示区域dip<span
+            class="dettext">(document.documentElement.clientWidth+'x'+document.documentElement.clientHeight)</span>:<span
             id="s11" class="num"></span>
-    </p>
 
-    <p>文档本身(html部分)dip<span
-            class="dettext">(document.documentElement.offsetWidth+'x'+document.documentElement.offsetHeight)</span>：<span
-            id="s12" class="num"></span></p>
+        文档本身(html部分)dip<span
+            class="dettext">(document.documentElement.offsetWidth+'x'+document.documentElement.offsetHeight)</span>:<span
+            id="s12" class="num"></span>
 
-    <p>整个页面滚动的dip<span class="dettext">(window.pageXOffset+'x'+window.pageYOffset)</span>：<span id="s13"
-            class="num"></span></p>
+        整个页面滚动的dip<span class="dettext">(window.pageXOffset+'x'+window.pageYOffset)</span>:<span id="s13"
+            class="num"></span>
 
-    <p>窗口在显示器中的位置<span class="dettext">(window.screenX+'x'+window.screenY)</span>：<span id="s14" class="num"></span></p>
+        窗口在显示器中的位置<span class="dettext">(window.screenX+'x'+window.screenY)</span>:<span id="s14" class="num"></span>
 
-    <p>刷新率<span class="dettext">(screen.updateInterval)</span>：<span id="s15" class="num"></span></p>
+        刷新率<span class="dettext">(screen.updateInterval)</span>:<span id="s15" class="num"></span>
+
+    </fieldset>
+    <p id="bor">1 in<span></span></p>
+    <p id="bor96">96 px<span></span></p>
+    <p id="bor128">128 px<span></span></p>
+    <p id="bor160">160 px<span></span></p>
+    <p id="bor163">163 px<span></span></p>
 
     <a href="https://github.com/asakimio/ScreenTest-Le" target="_blank">在GitHub上查看</a>
     <br /><br /><br />
