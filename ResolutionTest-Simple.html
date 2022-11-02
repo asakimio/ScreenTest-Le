@@ -97,6 +97,7 @@
 
     <fieldset>
         <legend>全屏幕</legend>
+
         <p>逻辑分辨率和比例<span class="dettext">(screen.width+'x'+screen.height)</span>：<span id="s2" class="num"></span></p>
 
         <p>物理分辨率<span class="dettext">(width*window.devicePixelRatio+'x'+height*window.devicePixelRatio)</span>：<span
@@ -126,12 +127,18 @@
                 class="num"></span>
         </p>
     </fieldset>
-    
+
     <fieldset>
         <legend>其他信息</legend>
-        屏幕可用工作区<span class="dettext">(screen.availWidth+'x'+screen.availHeight)</span>:<span id="s6" class="num"></span>
+
         色深<span class="dettext">(screen.colorDepth)</span>:<span id="s5" class="num"></span>
         位深<span class="dettext">(screen.pixelDepth)</span>:<span id="s7" class="num"></span>
+        刷新率<span class="dettext">(screen.updateInterval)</span>:<span id="s15" class="num"></span>
+        整个页面滚动的dip<span class="dettext">(window.pageXOffset+'x'+window.pageYOffset)</span>:<span id="s13"
+            class="num"></span>
+        屏幕可用工作区<span class="dettext">(screen.availWidth+'x'+screen.availHeight)</span>:<span id="s6" class="num"></span>
+        窗口在显示器中的位置<span class="dettext">(window.screenX+'x'+window.screenY)</span>:<span id="s14" class="num"></span>
+        <br />
         窗口的视口,包括水平滚动条dip<span class="dettext">(window.innerWidth+'x'+window.innerHeight)</span>:<span id="s8"
             class="num"></span>
 
@@ -148,12 +155,7 @@
             class="dettext">(document.documentElement.offsetWidth+'x'+document.documentElement.offsetHeight)</span>:<span
             id="s12" class="num"></span>
 
-        整个页面滚动的dip<span class="dettext">(window.pageXOffset+'x'+window.pageYOffset)</span>:<span id="s13"
-            class="num"></span>
 
-        窗口在显示器中的位置<span class="dettext">(window.screenX+'x'+window.screenY)</span>:<span id="s14" class="num"></span>
-
-        刷新率<span class="dettext">(screen.updateInterval)</span>:<span id="s15" class="num"></span>
 
     </fieldset>
     <p id="bor">1 in<span></span></p>
