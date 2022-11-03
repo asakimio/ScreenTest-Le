@@ -83,13 +83,13 @@
 <body>
 
     <form onsubmit="return checkSubmit()">
-        自定义dpi
-        <input type="number" value="113" max="9999" min="1" name="indpi" id="z1" onblur="setdpi()" onclick="setdpi()" />
+        <label for="z1">自定义dpi</label>
+        <input type="number" value="128" max="9999" min="1" name="indpi" id="z1" onblur="setdpi()" onclick="setdpi()" />
         <!-- <input type="text" value="113" style="width: 30px" name="indpi" id="z1" onblur="setdpi()" onclick="setdpi()" /> -->
         <input type="button" value="-" id="dpim" onclick="fdpim()" />
         <input type="button" value="+" id="dpip" onclick="fdpip()" />
         <!-- <input type="button" value="确定" id="dpiok" onclick="setdpi()" /> -->
-        &emsp;&emsp;
+        <span id="diyinch">0.00</span>
         <input type="checkbox" id="det" onclick="detOnclick(this)">
         <label for="det">显示代码</label>
     </form>
@@ -154,9 +154,6 @@
         文档本身(html部分)dip<span
             class="dettext">(document.documentElement.offsetWidth+'x'+document.documentElement.offsetHeight)</span>:<span
             id="s12" class="num"></span>
-
-
-
     </fieldset>
     <p id="bor">1 in<span></span></p>
     <p id="bor96">96 px<span></span></p>
@@ -209,6 +206,7 @@
         var hypopx = Math.ceil(Math.sqrt(Math.pow(screen.width, 2) + Math.pow(screen.height, 2)));
 
         document.getElementById("s16").innerHTML = hypopx + '，<span class="diydpi">' + (hypopx / thedpi).toFixed(2) + '，</span>' + (hypopx / 96).toFixed(2) + '，' + (hypopx / 128).toFixed(2) + '，' + (hypopx / 160).toFixed(2) + '，' + (hypopx / 163).toFixed(2);
+        document.getElementById("diyinch").innerHTML = '(' + '<span class="diydpi">' + (hypopx / thedpi).toFixed(2) + '</span>' + '英寸)';
 
         var hypopx2 = Math.ceil(Math.sqrt(Math.pow(W, 2) + Math.pow(H, 2)));
 
