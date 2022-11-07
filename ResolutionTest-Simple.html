@@ -66,36 +66,38 @@
         <input type="checkbox" id="det" onclick="detOnclick(this)">
         <label for="det">显示代码</label>
     </form>
-    <p id="borsetdpi" class="bors">自定义dpi高度线条(浏览器需保持100%缩放)</p>
+    <div id="borsetdpi" class="bors">自定义dpi高度线条(浏览器需保持100%缩放)</div>
 
     <fieldset>
         <legend>全屏幕</legend>
 
-        <p>逻辑分辨率和比例<span class="dettext">(screen.width+'x'+screen.height)</span>：<span id="s2" class="num"></span></p>
+        逻辑分辨率和比例<span class="dettext">(screen.width+'x'+screen.height)</span>：<span id="s2" class="num"></span>
+        <br />
 
-        <p>物理分辨率<span class="dettext">(width*window.devicePixelRatio+'x'+height*window.devicePixelRatio)</span>：<span
-                id="s3" class="num"></span>
-        </p>
+        物理分辨率<span class="dettext">(width*window.devicePixelRatio+'x'+height*window.devicePixelRatio)</span>：<span
+            id="s3" class="num"></span>
+        <br />
 
-        <p>dpr,取自定义,常用dpi的PPI<span class="dettext">(window.devicePixelRatio,~*dpiList)</span>：<span id="s4"
-                class="num"></span>
-        </p>
+        dpr,取自定义,常用dpi的PPI<span class="dettext">(window.devicePixelRatio,~*dpiList)</span>：<span id="s4"
+            class="num"></span>
+        <br />
 
-        <p>斜边dip量,取自定义,常用dpi的尺寸<span class="dettext">(√(screen.width^2+screen.height^2),~/dpiList)</span>：<span id="s16"
-                class="num"></span>
-        </p>
+        斜边dip量,取自定义,常用dpi的尺寸<span class="dettext">(√(screen.width^2+screen.height^2),~/dpiList)</span>：<span id="s16"
+            class="num"></span>
+
     </fieldset>
     <!-- <br /> -->
     <fieldset>
         <legend>窗口</legend>
-        <p>逻辑分辨率和比例<span
-                class="dettext">(document.documentElement.clientWidth+'x'+document.documentElement.clientHeight)</span>：<span
-                id="s1" class="num"></span>
-        </p>
+        逻辑分辨率和比例<span
+            class="dettext">(document.documentElement.clientWidth+'x'+document.documentElement.clientHeight)</span>：<span
+            id="s1" class="num"></span>
 
-        <p>斜边dip量,取自定义,常用dpi的尺寸<span class="dettext">(√(screen.width^2+screen.height^2),~/dpiList)</span>：<span id="s17"
-                class="num"></span>
-        </p>
+        <br />
+
+        斜边dip量,取自定义,常用dpi的尺寸<span class="dettext">(√(screen.width^2+screen.height^2),~/dpiList)</span>：<span id="s17"
+            class="num"></span>
+
     </fieldset>
 
     <fieldset>
@@ -103,7 +105,7 @@
         <div id="times"></div>
         <div id="otherVals"></div>
     </fieldset>
-    <p class="bors" style="border-width: 1in">1 in</p>
+    <div class="bors" style="border-width: 1in">1 in</div><br />
     <div id="borList"></div>
 
     <a href="https://github.com/asakimio/ScreenTest-Le" target="_blank">在GitHub上查看</a>
@@ -142,7 +144,7 @@
         document.getElementById('times').innerHTML = '';
         toSetVal('times', 'new Date()', 'Date对象', 0);
         toSetVal('times', 'new Date().getTime()', '时间戳', 1);
-        setTimeout(function () { setDate() }, 1);
+        setTimeout(function () { setDate() }, 221);
     }
 
 
@@ -201,7 +203,7 @@
         //若干高度线条
         var inht = '';
         for (let i = 0; i < diyList.length; i++) {
-            var str = '<p class=\"bors\" style=\"border-width:' + diyList[i] + 'px\">' + diyList[i] + ' px</p>';
+            var str = '<div class=\"bors\" style=\"border-width:' + diyList[i] + 'px\">' + diyList[i] + ' px</div><br/>';
             inht = inht.concat(str);
         }
         document.getElementById('borList').innerHTML = inht;
