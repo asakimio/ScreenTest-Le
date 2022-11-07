@@ -28,34 +28,8 @@
             }
         }
 
-        #bor {
+        .bors {
             border-bottom: solid #808080;
-            border-width: 1in;
-        }
-
-        /* #borsetdpi {
-            border-bottom: solid #808080;
-            border-width: 160px;
-        } */
-
-        #bor96 {
-            border-bottom: solid #808080;
-            border-width: 96px;
-        }
-
-        #bor128 {
-            border-bottom: solid #808080;
-            border-width: 128px;
-        }
-
-        #bor160 {
-            border-bottom: solid #808080;
-            border-width: 160px;
-        }
-
-        #bor163 {
-            border-bottom: solid #808080;
-            border-width: 163px;
         }
 
         .num {
@@ -85,7 +59,6 @@
     <form onsubmit="return checkSubmit()">
         <label for="z1">自定义dpi</label>
         <input type="number" value="128" max="9999" min="1" name="indpi" id="z1" onblur="setdpi()" onclick="setdpi()" />
-        <!-- <input type="text" value="113" style="width: 30px" name="indpi" id="z1" onblur="setdpi()" onclick="setdpi()" /> -->
         <input type="button" value="-" id="dpim" onclick="fdpim()" />
         <input type="button" value="+" id="dpip" onclick="fdpip()" />
         <!-- <input type="button" value="确定" id="dpiok" onclick="setdpi()" /> -->
@@ -93,7 +66,7 @@
         <input type="checkbox" id="det" onclick="detOnclick(this)">
         <label for="det">显示代码</label>
     </form>
-    <p id="borsetdpi">自定义dpi高度线条<span></span></p>
+    <p id="borsetdpi" class="bors">自定义dpi高度线条(浏览器需保持100%缩放)</p>
 
     <fieldset>
         <legend>全屏幕</legend>
@@ -127,50 +100,11 @@
 
     <fieldset>
         <legend>其他信息</legend>
-        Date对象<span class="dettext">(new Date())</span>:<span id="theDate" class="num"></span>
-        时间戳<span class="dettext">(new Date().getTime())</span>:<span id="timeStamp" class="num"></span>
-        <br />
-        色深<span class="dettext">(screen.colorDepth)</span>:<span id="s5" class="num"></span>
-        位深<span class="dettext">(screen.pixelDepth)</span>:<span id="s7" class="num"></span>
-        刷新率<span class="dettext">(screen.updateInterval)</span>:<span id="s15" class="num"></span>
-        整个页面滚动的dip<span class="dettext">(window.pageXOffset+'x'+window.pageYOffset)</span>:<span id="s13"
-            class="num"></span>
-        屏幕可用工作区<span class="dettext">(screen.availWidth+'x'+screen.availHeight)</span>:<span id="s6" class="num"></span>
-        窗口在显示器中的位置<span class="dettext">(window.screenX+'x'+window.screenY)</span>:<span id="s14" class="num"></span>
-        <br />
-        窗口的视口,包括水平滚动条dip<span class="dettext">(window.innerWidth+'x'+window.innerHeight)</span>:<span id="s8"
-            class="num"></span>
-
-        窗口外部dip<span class="dettext">(window.outerWidth+'x'+window.outerHeight)</span>:<span id="s9" class="num"></span>
-
-        文档中body部分dip<span class="dettext">(document.body.offsetWidth+'x'+document.body.offsetHeight)</span>:<span
-            id="s10" class="num"></span>
-
-        文档可显示区域dip<span
-            class="dettext">(document.documentElement.clientWidth+'x'+document.documentElement.clientHeight)</span>:<span
-            id="s11" class="num"></span>
-
-        文档本身(html部分)dip<span
-            class="dettext">(document.documentElement.offsetWidth+'x'+document.documentElement.offsetHeight)</span>:<span
-            id="s12" class="num"></span>
-        <br />
-        UserAgent<span class="dettext">(navigator.userAgent)</span>:<span id="userAgent" class="num"></span>
-        <br />
-
-        浏览器代号<span class="dettext">(navigator.appCodeName)</span>:<span id="appCodeName" class="num"></span>
-        浏览器名称<span class="dettext">(navigator.appName)</span>:<span id="appName" class="num"></span>
-        启用Cookies<span class="dettext">(navigator.cookieEnabled)</span>:<span id="cookieEnabled" class="num"></span>
-        浏览器厂商<span class="dettext">(navigator.vendor)</span>:<span id="vendor" class="num"></span>
-        硬件平台<span class="dettext">(navigator.platform)</span>:<span id="platform" class="num"></span>
-        用户代理语言<span class="dettext">(navigator.language)</span>:<span id="language" class="num"></span>
-        <br />
-        浏览器版本<span class="dettext">(navigator.appVersion)</span>:<span id="appVersion" class="num"></span>
+        <div id="times"></div>
+        <div id="otherVals"></div>
     </fieldset>
-    <p id="bor">1 in<span></span></p>
-    <p id="bor96">96 px<span></span></p>
-    <p id="bor128">128 px<span></span></p>
-    <p id="bor160">160 px<span></span></p>
-    <p id="bor163">163 px<span></span></p>
+    <p class="bors" style="border-width: 1in">1 in</p>
+    <div id="borList"></div>
 
     <a href="https://github.com/asakimio/ScreenTest-Le" target="_blank">在GitHub上查看</a>
     <br /><br /><br />
@@ -189,7 +123,6 @@
     window.onload = function () {
         //进入页面加载
         setdpi();
-        setDate();
     }
     onresize = function () {
         //窗口拖动时加载
@@ -198,10 +131,96 @@
     function setdpi() {
         //计算入口
         var thedpi = document.getElementById("z1").value;
-        var diyList = JSON.parse('[96,113,128,160,163]');
-        //console.log(thedpi);
-        fenbianlv(thedpi, diyList);
-        // console.log(strDpiList(diyList,'*',2,0));
+        // var diyList = JSON.parse('[96,113,128,160,163]');
+        var diyList = [96, 113, 128, 160, 163];
+        toApply(thedpi, diyList);
+        setDate();
+    }
+
+    //页面时间
+    function setDate() {
+        document.getElementById('times').innerHTML = '';
+        toSetVal('times', 'new Date()', 'Date对象', 0);
+        toSetVal('times', 'new Date().getTime()', '时间戳', 1);
+        setTimeout(function () { setDate() }, 1);
+    }
+
+
+    function toApply(thedpi, diyList) {
+        //计算并渲染到页面
+
+        //全屏幕
+        var width = screen.width;
+        var height = screen.height;
+        var arr2 = reductionTo(width, height);
+        document.getElementById("s2").innerHTML = width + 'x' + height + '（' + arr2[0] + ':' + arr2[1] + '）';
+        var dpr = window.devicePixelRatio;
+        document.getElementById("s3").innerHTML = width * dpr + 'x' + height * dpr;
+        document.getElementById("s4").innerHTML = dpr + ', <span class="diydpi">' + dpr * thedpi + '</span>' + ', ' + strDpiList(diyList, '*', dpr, 0);
+        //全屏斜边逻辑像素量
+        var hypopx = Math.ceil(Math.sqrt(Math.pow(screen.width, 2) + Math.pow(screen.height, 2)));
+
+        document.getElementById("s16").innerHTML = hypopx + ', <span class="diydpi">' + (hypopx / thedpi).toFixed(2) + '</span>' + ', ' + strDpiList(diyList, '/', hypopx, 2);
+
+        //自定义dpi和高度线条
+        document.getElementById("diyinch").innerHTML = '(' + '<span class="diydpi">' + (hypopx / thedpi).toFixed(2) + '</span>' + '英寸)';
+        document.getElementById("borsetdpi").setAttribute("style", "border-width: " + thedpi + "px;");
+
+        //窗口
+        var W = document.documentElement.clientWidth;
+        var H = document.documentElement.clientHeight;
+        var arr1 = reductionTo(W, H);
+        document.getElementById("s1").innerHTML = W + 'x' + H + '（' + arr1[0] + ':' + arr1[1] + '）';
+        //窗口斜边逻辑像素量
+        var hypopx2 = Math.ceil(Math.sqrt(Math.pow(W, 2) + Math.pow(H, 2)));
+        document.getElementById("s17").innerHTML = hypopx2 + ', <span class="diydpi">' + (hypopx2 / thedpi).toFixed(2) + '</span>' + ', ' + strDpiList(diyList, '/', hypopx2, 2);
+
+        //其他
+        document.getElementById('otherVals').innerHTML = '';
+        toSetVal('otherVals', 'screen.colorDepth', '色深', 0);
+        toSetVal('otherVals', 'screen.pixelDepth', '位深', 0);
+        toSetVal('otherVals', 'screen.updateInterval', '刷新率', 0);
+        toSetVal('otherVals', 'window.pageXOffset+\'x\'+window.pageYOffset', '整个页面滚动的dip', 0);
+        toSetVal('otherVals', 'screen.availWidth+\'x\'+screen.availHeight', '屏幕可用工作区', 0);
+        toSetVal('otherVals', 'window.screenX+\'x\'+window.screenY', '窗口在显示器中的位置', 1);
+        toSetVal('otherVals', 'window.innerWidth+\'x\'+window.innerHeight', '窗口的视口,包括水平滚动条dip', 0);
+        toSetVal('otherVals', 'window.outerWidth+\'x\'+window.outerHeight', '窗口外部dip', 0);
+
+        toSetVal('otherVals', 'document.documentElement.clientWidth+\'x\'+document.documentElement.clientHeight', '文档可显示区域dip', 1);
+        // toSetVal('otherVals','document.body.offsetWidth+\'x\'+document.body.offsetHeight', '文档中body部分dip', 0);
+        // toSetVal('otherVals','document.documentElement.offsetWidth+\'x\'+document.documentElement.offsetHeight', '文档本身(html部分)dip', 1);
+        toSetVal('otherVals', 'navigator.userAgent', '用户代理', 1);
+        toSetVal('otherVals', 'navigator.appCodeName', '浏览器代号', 0);
+        toSetVal('otherVals', 'navigator.appName', '浏览器名称', 0);
+        toSetVal('otherVals', 'navigator.cookieEnabled', '启用Cookies', 0);
+        toSetVal('otherVals', 'navigator.vendor', '浏览器厂商', 0);
+        toSetVal('otherVals', 'navigator.platform', '硬件平台', 0);
+        toSetVal('otherVals', 'navigator.language', '用户代理语言', 1);
+        toSetVal('otherVals', 'navigator.appVersion', '浏览器版本', 1);
+
+        //若干高度线条
+        var inht = '';
+        for (let i = 0; i < diyList.length; i++) {
+            var str = '<p class=\"bors\" style=\"border-width:' + diyList[i] + 'px\">' + diyList[i] + ' px</p>';
+            inht = inht.concat(str);
+        }
+        document.getElementById('borList').innerHTML = inht;
+
+
+    }
+
+    //显示在页面上的自定义信息
+    function toSetVal(eid, code, str, br) {
+        //参数（位置id，要返回的代码，说明（可空），之后换行）
+        // console.log(code);
+        // var result = new Function('return '.concat(code).concat(';'))();
+        theStr = str == '' ? tf(code) : ' ' + str;
+        var result = eval('(' + code + ')');
+        // console.log('val:' + result);
+        let htStr = theStr + '<span class=\"dettext\">(' + code + ')</span>:<span id=\"' + tf(code) + '\" class=\"num\">' + result + '</span>';
+        htStr = br == 0 ? htStr : htStr.concat('<br/>');
+        document.getElementById(eid).innerHTML = document.getElementById(eid).innerHTML + htStr;
+        return result;
     }
 
     //对常用dpi列表计算，转字符串数组输出
@@ -216,70 +235,14 @@
         }
         return '[' + calList.join(', ') + ']';
     }
-
-    function setDate() {
-        document.getElementById("theDate").innerHTML = new Date();
-        document.getElementById("timeStamp").innerHTML = new Date().getTime();
-        setTimeout(function () { setDate() }, 1);
-    }
-    function fenbianlv(thedpi, diyList) {
-        //计算并渲染到页面
-        var W = document.documentElement.clientWidth;
-        var H = document.documentElement.clientHeight;
-        var arr1 = reductionTo(W, H);
-        document.getElementById("s1").innerHTML = W + 'x' + H + '（' + arr1[0] + ':' + arr1[1] + '）';
-
-        var width = screen.width;
-        var height = screen.height;
-        var arr2 = reductionTo(width, height);
-        document.getElementById("s2").innerHTML = width + 'x' + height + '（' + arr2[0] + ':' + arr2[1] + '）';
-
-        var dpr = window.devicePixelRatio;
-        document.getElementById("s3").innerHTML = width * dpr + 'x' + height * dpr;
-        document.getElementById("s4").innerHTML = dpr + '，<span class="diydpi">' + dpr * thedpi + '，</span>' + strDpiList(diyList, '*', dpr, 0);
-
-        document.getElementById("s5").innerHTML = screen.colorDepth;
-
-        document.getElementById("s6").innerHTML = screen.availWidth + 'x' + screen.availHeight;
-
-        document.getElementById("s7").innerHTML = screen.pixelDepth;
-        document.getElementById("s8").innerHTML = window.innerWidth + 'x' + window.innerHeight;
-        document.getElementById("s9").innerHTML = window.outerWidth + 'x' + window.outerHeight;
-        document.getElementById("s10").innerHTML = document.body.offsetWidth + 'x' + document.body.offsetHeight;
-
-        document.getElementById("s11").innerHTML = document.documentElement.clientWidth + 'x' + document.documentElement.clientHeight;
-        document.getElementById("s12").innerHTML = document.documentElement.offsetWidth + 'x' + document.documentElement.offsetHeight;
-
-        document.getElementById("s13").innerHTML = window.pageXOffset + 'x' + window.pageYOffset;
-
-        document.getElementById("s14").innerHTML = window.screenX + 'x' + window.screenY;
-
-        document.getElementById("s15").innerHTML = screen.updateInterval;
-
-        var hypopx = Math.ceil(Math.sqrt(Math.pow(screen.width, 2) + Math.pow(screen.height, 2)));
-
-        document.getElementById("s16").innerHTML = hypopx + '，<span class="diydpi">' + (hypopx / thedpi).toFixed(2) + '，</span>' + strDpiList(diyList, '/', hypopx, 2);
-
-        document.getElementById("diyinch").innerHTML = '(' + '<span class="diydpi">' + (hypopx / thedpi).toFixed(2) + '</span>' + '英寸)';
-
-        var hypopx2 = Math.ceil(Math.sqrt(Math.pow(W, 2) + Math.pow(H, 2)));
-
-        document.getElementById("s17").innerHTML = hypopx2 + '，<span class="diydpi">' + (hypopx2 / thedpi).toFixed(2) + '，</span>' + strDpiList(diyList, '/', hypopx2, 2);
-
-
-        document.getElementById("borsetdpi").setAttribute("style", "border-bottom: solid #808080;border-width: " + thedpi + "px;");
-
-        document.getElementById("userAgent").innerHTML = navigator.userAgent;
-        document.getElementById("appVersion").innerHTML = navigator.appVersion;
-        document.getElementById("appCodeName").innerHTML = navigator.appCodeName;
-        document.getElementById("appName").innerHTML = navigator.appName;
-        document.getElementById("cookieEnabled").innerHTML = navigator.cookieEnabled;
-        document.getElementById("vendor").innerHTML = navigator.vendor;
-        document.getElementById("platform").innerHTML = navigator.platform;
-        document.getElementById("language").innerHTML = navigator.language;
-
-    }
-
+    //转驼峰命名
+    function tf(str) {
+        var arr = str.split(".");
+        for (var i = 1; i < arr.length; i++) {
+            arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].substring(1);
+        }
+        return arr.join("");
+    };
 
     function fdpip() {
         //加按钮
@@ -316,14 +279,6 @@
             })
         }
     }
-
-
-    // onclick = function () {
-    //     fenbianlv();
-    // }
-    // document.onmousemove=function(){
-    //     fenbianlv();
-    // }
 
     function reductionTo(m, n) {
         //分数约分工具，用于计算屏幕比例
