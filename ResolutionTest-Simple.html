@@ -104,13 +104,11 @@
                 id="s3" class="num"></span>
         </p>
 
-        <p>dpr,和取自定义,96,128,160,163dpi时的PPI<span
-                class="dettext">(window.devicePixelRatio,~*96,~*128,~*160,~*163)</span>：<span id="s4"
+        <p>dpr,取自定义,常用dpi的PPI<span class="dettext">(window.devicePixelRatio,~*dpiList)</span>：<span id="s4"
                 class="num"></span>
         </p>
 
-        <p>斜边dip量,和取自定义,96,128,160,163dpi时的尺寸<span
-                class="dettext">(√(screen.width^2+screen.height^2),~/96,~/128,~/160,~/163)</span>：<span id="s16"
+        <p>斜边dip量,取自定义,常用dpi的尺寸<span class="dettext">(√(screen.width^2+screen.height^2),~/dpiList)</span>：<span id="s16"
                 class="num"></span>
         </p>
     </fieldset>
@@ -122,15 +120,16 @@
                 id="s1" class="num"></span>
         </p>
 
-        <p>斜边dip量,和取自定义,96,128,160,163dpi时的尺寸<span
-                class="dettext">(√(screen.width^2+screen.height^2),~/96,~/128,~/160,~/163)</span>：<span id="s17"
+        <p>斜边dip量,取自定义,常用dpi的尺寸<span class="dettext">(√(screen.width^2+screen.height^2),~/dpiList)</span>：<span id="s17"
                 class="num"></span>
         </p>
     </fieldset>
 
     <fieldset>
         <legend>其他信息</legend>
-
+        Date对象<span class="dettext">(new Date())</span>:<span id="theDate" class="num"></span>
+        时间戳<span class="dettext">(new Date().getTime())</span>:<span id="timeStamp" class="num"></span>
+        <br />
         色深<span class="dettext">(screen.colorDepth)</span>:<span id="s5" class="num"></span>
         位深<span class="dettext">(screen.pixelDepth)</span>:<span id="s7" class="num"></span>
         刷新率<span class="dettext">(screen.updateInterval)</span>:<span id="s15" class="num"></span>
@@ -154,6 +153,18 @@
         文档本身(html部分)dip<span
             class="dettext">(document.documentElement.offsetWidth+'x'+document.documentElement.offsetHeight)</span>:<span
             id="s12" class="num"></span>
+        <br />
+        UserAgent<span class="dettext">(navigator.userAgent)</span>:<span id="userAgent" class="num"></span>
+        <br />
+
+        浏览器代号<span class="dettext">(navigator.appCodeName)</span>:<span id="appCodeName" class="num"></span>
+        浏览器名称<span class="dettext">(navigator.appName)</span>:<span id="appName" class="num"></span>
+        启用Cookies<span class="dettext">(navigator.cookieEnabled)</span>:<span id="cookieEnabled" class="num"></span>
+        浏览器厂商<span class="dettext">(navigator.vendor)</span>:<span id="vendor" class="num"></span>
+        硬件平台<span class="dettext">(navigator.platform)</span>:<span id="platform" class="num"></span>
+        用户代理语言<span class="dettext">(navigator.language)</span>:<span id="language" class="num"></span>
+        <br />
+        浏览器版本<span class="dettext">(navigator.appVersion)</span>:<span id="appVersion" class="num"></span>
     </fieldset>
     <p id="bor">1 in<span></span></p>
     <p id="bor96">96 px<span></span></p>
@@ -169,8 +180,50 @@
 </html>
 <script>
 
-    function fenbianlv(thedpi) {
-        //计算并显示到页面
+    function checkSubmit() {
+        //在输入框中回车时触发的submit事件
+        event.preventDefault();//阻止表单的默认行为
+        setdpi();
+    }
+
+    window.onload = function () {
+        //进入页面加载
+        setdpi();
+        setDate();
+    }
+    onresize = function () {
+        //窗口拖动时加载
+        setdpi();
+    }
+    function setdpi() {
+        //计算入口
+        var thedpi = document.getElementById("z1").value;
+        var diyList = JSON.parse('[96,113,128,160,163]');
+        //console.log(thedpi);
+        fenbianlv(thedpi, diyList);
+        // console.log(strDpiList(diyList,'*',2,0));
+    }
+
+    //对常用dpi列表计算，转字符串数组输出
+    function strDpiList(diyList, op, b, Fix) {
+        // console.log('diyListlength'+diyList.length)
+        var calList = [];
+        for (let i = 0; i < diyList.length; i++) {
+            switch (op) {
+                case "*": calList.push(diyList[i] + ': ' + (b * diyList[i]).toFixed(Fix)); break;
+                case "/": calList.push(diyList[i] + ': ' + (b / diyList[i]).toFixed(Fix)); break;
+            }
+        }
+        return '[' + calList.join(', ') + ']';
+    }
+
+    function setDate() {
+        document.getElementById("theDate").innerHTML = new Date();
+        document.getElementById("timeStamp").innerHTML = new Date().getTime();
+        setTimeout(function () { setDate() }, 1);
+    }
+    function fenbianlv(thedpi, diyList) {
+        //计算并渲染到页面
         var W = document.documentElement.clientWidth;
         var H = document.documentElement.clientHeight;
         var arr1 = reductionTo(W, H);
@@ -183,7 +236,7 @@
 
         var dpr = window.devicePixelRatio;
         document.getElementById("s3").innerHTML = width * dpr + 'x' + height * dpr;
-        document.getElementById("s4").innerHTML = dpr + '，<span class="diydpi">' + dpr * thedpi + '，</span>' + dpr * 96 + '，' + dpr * 128 + '，' + dpr * 160 + '，' + dpr * 163;
+        document.getElementById("s4").innerHTML = dpr + '，<span class="diydpi">' + dpr * thedpi + '，</span>' + strDpiList(diyList, '*', dpr, 0);
 
         document.getElementById("s5").innerHTML = screen.colorDepth;
 
@@ -205,28 +258,28 @@
 
         var hypopx = Math.ceil(Math.sqrt(Math.pow(screen.width, 2) + Math.pow(screen.height, 2)));
 
-        document.getElementById("s16").innerHTML = hypopx + '，<span class="diydpi">' + (hypopx / thedpi).toFixed(2) + '，</span>' + (hypopx / 96).toFixed(2) + '，' + (hypopx / 128).toFixed(2) + '，' + (hypopx / 160).toFixed(2) + '，' + (hypopx / 163).toFixed(2);
+        document.getElementById("s16").innerHTML = hypopx + '，<span class="diydpi">' + (hypopx / thedpi).toFixed(2) + '，</span>' + strDpiList(diyList, '/', hypopx, 2);
+
         document.getElementById("diyinch").innerHTML = '(' + '<span class="diydpi">' + (hypopx / thedpi).toFixed(2) + '</span>' + '英寸)';
 
         var hypopx2 = Math.ceil(Math.sqrt(Math.pow(W, 2) + Math.pow(H, 2)));
 
-        document.getElementById("s17").innerHTML = hypopx2 + '，<span class="diydpi">' + (hypopx2 / thedpi).toFixed(2) + '，</span>' + (hypopx2 / 96).toFixed(2) + '，' + (hypopx2 / 128).toFixed(2) + '，' + (hypopx2 / 160).toFixed(2) + '，' + (hypopx2 / 163).toFixed(2);
+        document.getElementById("s17").innerHTML = hypopx2 + '，<span class="diydpi">' + (hypopx2 / thedpi).toFixed(2) + '，</span>' + strDpiList(diyList, '/', hypopx2, 2);
+
 
         document.getElementById("borsetdpi").setAttribute("style", "border-bottom: solid #808080;border-width: " + thedpi + "px;");
 
+        document.getElementById("userAgent").innerHTML = navigator.userAgent;
+        document.getElementById("appVersion").innerHTML = navigator.appVersion;
+        document.getElementById("appCodeName").innerHTML = navigator.appCodeName;
+        document.getElementById("appName").innerHTML = navigator.appName;
+        document.getElementById("cookieEnabled").innerHTML = navigator.cookieEnabled;
+        document.getElementById("vendor").innerHTML = navigator.vendor;
+        document.getElementById("platform").innerHTML = navigator.platform;
+        document.getElementById("language").innerHTML = navigator.language;
+
     }
 
-    function setdpi() {
-        //计算入口
-        var thedpi = document.getElementById("z1").value;
-        fenbianlv(thedpi);
-    }
-
-    function checkSubmit() {
-        //在输入框中回车时触发的submit事件
-        event.preventDefault();//阻止表单的默认行为
-        setdpi();
-    }
 
     function fdpip() {
         //加按钮
@@ -264,14 +317,7 @@
         }
     }
 
-    window.onload = function () {
-        //进入页面加载
-        setdpi();
-    }
-    onresize = function () {
-        //窗口拖动时加载
-        setdpi();
-    }
+
     // onclick = function () {
     //     fenbianlv();
     // }
