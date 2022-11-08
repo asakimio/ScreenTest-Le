@@ -104,6 +104,7 @@
         <legend>其他信息</legend>
         <div id="times"></div>
         <div id="otherVals"></div>
+        <div id="myBrower"></div>
     </fieldset>
     <div class="bors" style="border-width: 1in">1 in</div><br />
     <div id="borList"></div>
@@ -115,6 +116,8 @@
 
 </html>
 <script>
+    // var diyList = JSON.parse('[96,113,128,160,163]');
+    var diyList = [96, 113, 128, 160, 163];
 
     function checkSubmit() {
         //在输入框中回车时触发的submit事件
@@ -124,19 +127,18 @@
 
     window.onload = function () {
         //进入页面加载
+        loadTo(diyList);
         setdpi();
-        setDate();
+        // loadAndResizeto(thedpi, diyList);
     }
-    // onresize = function () {
-    //     //窗口拖动时加载
-    //     setdpi();
-    // }
+    onresize = function () {
+        //窗口拖动时加载
+        setdpi();
+    }
     function setdpi() {
         //计算入口
         var thedpi = document.getElementById("z1").value;
-        // var diyList = JSON.parse('[96,113,128,160,163]');
-        var diyList = [96, 113, 128, 160, 163];
-        toApply(thedpi, diyList);
+        loadAndResizeto(thedpi, diyList);
     }
 
     //定时刷新页面时间
@@ -149,11 +151,50 @@
 
 
     //加载刷新
+    function loadTo(diyList) {
+        setDate();
+
+        document.getElementById('myBrower').innerHTML = '';
+        //navigator信息
+        toSetVal('myBrower', 'navigator.userAgent', '用户代理', 1, 1);
+        toSetVal('myBrower', 'navigator.appCodeName', '浏览器代号', 0, 1);
+        toSetVal('myBrower', 'navigator.appName', '浏览器名称', 0, 1);
+        toSetVal('myBrower', 'navigator.cookieEnabled', '启用Cookies', 0, 1);
+        toSetVal('myBrower', 'navigator.vendor', '浏览器厂商', 0, 1);
+        toSetVal('myBrower', 'navigator.platform', '硬件平台', 0, 1);
+        toSetVal('myBrower', 'navigator.language', '用户代理语言', 1, 1);
+        toSetVal('myBrower', 'navigator.appVersion', '浏览器版本', 1, 1);
+
+        // 显示显卡型号
+        var gl = document.createElement('canvas').getContext('webgl');
+        var debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        var vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+        var renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        toSetVal('myBrower', vendor, 'vendor', 0, 0);
+        toSetVal('myBrower', renderer, 'renderer', 1, 0);
+
+        //深色模式支持
+        // var ispcs = window.matchMedia('(prefers-color-scheme)').matches;
+        var ispcs = window.matchMedia('(prefers-color-scheme)').media !== 'not all';
+        toSetVal('myBrower', ispcs, '支持深色', 0, 0);
+        if (ispcs) {
+            var pcs = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var nppcs = window.matchMedia('(prefers-color-scheme: no-preference)').matches;
+            toSetVal('myBrower', nppcs, '未指定', 0, 0);
+            toSetVal('myBrower', pcs, '已启用深色', 1, 0);
+        }
+
+        //若干高度线条
+        var inht = '';
+        for (let i = 0; i < diyList.length; i++) {
+            var str = '<div class=\"bors\" style=\"border-width:' + diyList[i] + 'px\">' + diyList[i] + ' px</div><br/>';
+            inht = inht.concat(str);
+        }
+        document.getElementById('borList').innerHTML = inht;
+    }
 
     //加载和拖动页面刷新
-    function toApply(thedpi, diyList) {
-        //计算并渲染到页面
-
+    function loadAndResizeto(thedpi, diyList) {
         //全屏幕
         var width = screen.width;
         var height = screen.height;
@@ -192,46 +233,6 @@
         toSetVal('otherVals', 'window.outerWidth+\'x\'+window.outerHeight', '窗口外部dip', 0, 1);
 
         toSetVal('otherVals', 'document.documentElement.clientWidth+\'x\'+document.documentElement.clientHeight', '文档可显示区域dip', 1, 1);
-        // toSetVal('otherVals','document.body.offsetWidth+\'x\'+document.body.offsetHeight', '文档中body部分dip', 0,1);
-        // toSetVal('otherVals','document.documentElement.offsetWidth+\'x\'+document.documentElement.offsetHeight', '文档本身(html部分)dip', 1,1);
-        toSetVal('otherVals', 'navigator.userAgent', '用户代理', 1, 1);
-        toSetVal('otherVals', 'navigator.appCodeName', '浏览器代号', 0, 1);
-        toSetVal('otherVals', 'navigator.appName', '浏览器名称', 0, 1);
-        toSetVal('otherVals', 'navigator.cookieEnabled', '启用Cookies', 0, 1);
-        toSetVal('otherVals', 'navigator.vendor', '浏览器厂商', 0, 1);
-        toSetVal('otherVals', 'navigator.platform', '硬件平台', 0, 1);
-        toSetVal('otherVals', 'navigator.language', '用户代理语言', 1, 1);
-        toSetVal('otherVals', 'navigator.appVersion', '浏览器版本', 1, 1);
-
-        // 显示显卡型号
-        var gl = document.createElement('canvas').getContext('webgl');
-        var debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-        var vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
-        var renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-        toSetVal('otherVals', vendor, 'vendor', 0, 0);
-        toSetVal('otherVals', renderer, 'renderer', 1, 0);
-
-
-        //深色模式支持
-        // var ispcs = window.matchMedia('(prefers-color-scheme)').matches;
-        var ispcs = window.matchMedia('(prefers-color-scheme)').media !== 'not all';
-        toSetVal('otherVals', ispcs, '支持深色', 0, 0);
-        if (ispcs) {
-            var pcs = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            var nppcs = window.matchMedia('(prefers-color-scheme: no-preference)').matches;
-            toSetVal('otherVals', nppcs, '未指定', 0, 0);
-            toSetVal('otherVals', pcs, '已启用深色', 1, 0);
-        }
-        
-
-        //若干高度线条
-        var inht = '';
-        for (let i = 0; i < diyList.length; i++) {
-            var str = '<div class=\"bors\" style=\"border-width:' + diyList[i] + 'px\">' + diyList[i] + ' px</div><br/>';
-            inht = inht.concat(str);
-        }
-        document.getElementById('borList').innerHTML = inht;
-
     }
 
     //显示在页面上的自定义信息
@@ -247,7 +248,6 @@
         document.getElementById(eid).innerHTML = document.getElementById(eid).innerHTML + htStr;
         return result;
     }
-
 
     //对常用dpi列表计算，转字符串数组输出
     function strDpiList(diyList, op, b, Fix) {
