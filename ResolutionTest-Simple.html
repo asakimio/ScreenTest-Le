@@ -63,8 +63,8 @@
         <input type="button" value="+" id="dpip" onclick="fdpip()" />
         <!-- <input type="button" value="确定" id="dpiok" onclick="setdpi()" /> -->
         <span id="diyinch">0.00</span>
-        <input type="checkbox" id="det" onclick="detOnclick(this)">
-        <label for="det">显示代码</label>
+        <!-- <input type="checkbox" id="det" onclick="detOnclick(this)"> -->
+        <!-- <label for="det">显示代码</label> -->
     </form>
     <div id="borsetdpi" class="bors">自定义dpi高度线条(浏览器需保持100%缩放)</div>
 
@@ -142,8 +142,8 @@
     //页面时间
     function setDate() {
         document.getElementById('times').innerHTML = '';
-        toSetVal('times', 'new Date()', 'Date对象', 0);
-        toSetVal('times', 'new Date().getTime()', '时间戳', 1);
+        toSetVal('times', 'new Date()', 'Date对象', 0, 1);
+        toSetVal('times', 'new Date().getTime()', '时间戳', 1, 1);
         setTimeout(function () { setDate() }, 221);
     }
 
@@ -179,26 +179,47 @@
 
         //其他
         document.getElementById('otherVals').innerHTML = '';
-        toSetVal('otherVals', 'screen.colorDepth', '色深', 0);
-        toSetVal('otherVals', 'screen.pixelDepth', '位深', 0);
-        toSetVal('otherVals', 'screen.updateInterval', '刷新率', 0);
-        toSetVal('otherVals', 'window.pageXOffset+\'x\'+window.pageYOffset', '整个页面滚动的dip', 0);
-        toSetVal('otherVals', 'screen.availWidth+\'x\'+screen.availHeight', '屏幕可用工作区', 0);
-        toSetVal('otherVals', 'window.screenX+\'x\'+window.screenY', '窗口在显示器中的位置', 1);
-        toSetVal('otherVals', 'window.innerWidth+\'x\'+window.innerHeight', '窗口的视口,包括水平滚动条dip', 0);
-        toSetVal('otherVals', 'window.outerWidth+\'x\'+window.outerHeight', '窗口外部dip', 0);
+        toSetVal('otherVals', 'screen.colorDepth', '色深', 0, 1);
+        toSetVal('otherVals', 'screen.pixelDepth', '位深', 0, 1);
+        toSetVal('otherVals', 'screen.updateInterval', '刷新率', 0, 1);
+        toSetVal('otherVals', 'window.pageXOffset+\'x\'+window.pageYOffset', '整个页面滚动的dip', 0, 1);
+        toSetVal('otherVals', 'screen.availWidth+\'x\'+screen.availHeight', '屏幕可用工作区', 0, 1);
+        toSetVal('otherVals', 'window.screenX+\'x\'+window.screenY', '窗口在显示器中的位置', 1, 1);
+        toSetVal('otherVals', 'window.innerWidth+\'x\'+window.innerHeight', '窗口的视口,包括水平滚动条dip', 0, 1);
+        toSetVal('otherVals', 'window.outerWidth+\'x\'+window.outerHeight', '窗口外部dip', 0, 1);
 
-        toSetVal('otherVals', 'document.documentElement.clientWidth+\'x\'+document.documentElement.clientHeight', '文档可显示区域dip', 1);
-        // toSetVal('otherVals','document.body.offsetWidth+\'x\'+document.body.offsetHeight', '文档中body部分dip', 0);
-        // toSetVal('otherVals','document.documentElement.offsetWidth+\'x\'+document.documentElement.offsetHeight', '文档本身(html部分)dip', 1);
-        toSetVal('otherVals', 'navigator.userAgent', '用户代理', 1);
-        toSetVal('otherVals', 'navigator.appCodeName', '浏览器代号', 0);
-        toSetVal('otherVals', 'navigator.appName', '浏览器名称', 0);
-        toSetVal('otherVals', 'navigator.cookieEnabled', '启用Cookies', 0);
-        toSetVal('otherVals', 'navigator.vendor', '浏览器厂商', 0);
-        toSetVal('otherVals', 'navigator.platform', '硬件平台', 0);
-        toSetVal('otherVals', 'navigator.language', '用户代理语言', 1);
-        toSetVal('otherVals', 'navigator.appVersion', '浏览器版本', 1);
+        toSetVal('otherVals', 'document.documentElement.clientWidth+\'x\'+document.documentElement.clientHeight', '文档可显示区域dip', 1, 1);
+        // toSetVal('otherVals','document.body.offsetWidth+\'x\'+document.body.offsetHeight', '文档中body部分dip', 0,1);
+        // toSetVal('otherVals','document.documentElement.offsetWidth+\'x\'+document.documentElement.offsetHeight', '文档本身(html部分)dip', 1,1);
+        toSetVal('otherVals', 'navigator.userAgent', '用户代理', 1, 1);
+        toSetVal('otherVals', 'navigator.appCodeName', '浏览器代号', 0, 1);
+        toSetVal('otherVals', 'navigator.appName', '浏览器名称', 0, 1);
+        toSetVal('otherVals', 'navigator.cookieEnabled', '启用Cookies', 0, 1);
+        toSetVal('otherVals', 'navigator.vendor', '浏览器厂商', 0, 1);
+        toSetVal('otherVals', 'navigator.platform', '硬件平台', 0, 1);
+        toSetVal('otherVals', 'navigator.language', '用户代理语言', 1, 1);
+        toSetVal('otherVals', 'navigator.appVersion', '浏览器版本', 1, 1);
+
+        // 显示显卡型号
+        var gl = document.createElement('canvas').getContext('webgl');
+        var debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        var vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+        var renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        toSetVal('otherVals', vendor, 'vendor', 0, 0);
+        toSetVal('otherVals', renderer, 'renderer', 1, 0);
+
+
+        //深色模式支持
+        // var ispcs = window.matchMedia('(prefers-color-scheme)').matches;
+        var ispcs = window.matchMedia('(prefers-color-scheme)').media !== 'not all';
+        toSetVal('otherVals', ispcs, '支持深色', 0, 0);
+        if (ispcs) {
+            var pcs = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var nppcs = window.matchMedia('(prefers-color-scheme: no-preference)').matches;
+            toSetVal('otherVals', nppcs, '未指定', 0, 0);
+            toSetVal('otherVals', pcs, '已启用深色', 1, 0);
+        }
+        
 
         //若干高度线条
         var inht = '';
@@ -212,18 +233,19 @@
     }
 
     //显示在页面上的自定义信息
-    function toSetVal(eid, code, str, br) {
-        //参数（位置id，要返回的代码，说明（可空），之后换行）
+    function toSetVal(eid, code, str, br, iscode) {
+        //参数（位置id，要返回的代码，说明（可空），之后换行，是否执行代码）
         // console.log(code);
         // var result = new Function('return '.concat(code).concat(';'))();
         theStr = str == '' ? tf(code) : ' ' + str;
-        var result = eval('(' + code + ')');
+        var result = iscode == 1 ? eval('(' + code + ')') : code;
         // console.log('val:' + result);
-        let htStr = theStr + '<span class=\"dettext\">(' + code + ')</span>:<span id=\"' + tf(code) + '\" class=\"num\">' + result + '</span>';
+        let htStr = theStr + '<span class=\"dettext\">(' + code + ')</span>:<span class=\"num\">' + result + '</span>';
         htStr = br == 0 ? htStr : htStr.concat('<br/>');
         document.getElementById(eid).innerHTML = document.getElementById(eid).innerHTML + htStr;
         return result;
     }
+
 
     //对常用dpi列表计算，转字符串数组输出
     function strDpiList(diyList, op, b, Fix) {
