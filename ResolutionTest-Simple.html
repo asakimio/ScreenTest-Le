@@ -125,21 +125,21 @@
     window.onload = function () {
         //进入页面加载
         setdpi();
+        setDate();
     }
-    onresize = function () {
-        //窗口拖动时加载
-        setdpi();
-    }
+    // onresize = function () {
+    //     //窗口拖动时加载
+    //     setdpi();
+    // }
     function setdpi() {
         //计算入口
         var thedpi = document.getElementById("z1").value;
         // var diyList = JSON.parse('[96,113,128,160,163]');
         var diyList = [96, 113, 128, 160, 163];
         toApply(thedpi, diyList);
-        setDate();
     }
 
-    //页面时间
+    //定时刷新页面时间
     function setDate() {
         document.getElementById('times').innerHTML = '';
         toSetVal('times', 'new Date()', 'Date对象', 0, 1);
@@ -148,6 +148,9 @@
     }
 
 
+    //加载刷新
+
+    //加载和拖动页面刷新
     function toApply(thedpi, diyList) {
         //计算并渲染到页面
 
@@ -228,7 +231,6 @@
             inht = inht.concat(str);
         }
         document.getElementById('borList').innerHTML = inht;
-
 
     }
 
