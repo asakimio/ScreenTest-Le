@@ -141,12 +141,12 @@
         loadAndResizeto(thedpi, diyList);
     }
 
-    //定时刷新页面时间
+    //定时//刷新页面时间
     function setDate() {
         document.getElementById('times').innerHTML = '';
         toSetVal('times', 'new Date()', 'Date对象', 0, 1);
         toSetVal('times', 'new Date().getTime()', '时间戳', 1, 1);
-        setTimeout(function () { setDate() }, 221);
+        //setTimeout(function () { setDate() }, 221);
     }
 
 
